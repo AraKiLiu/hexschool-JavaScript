@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>Vue練習</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        type="text/css"
+        href="css/style.css">
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <input v-model="text">
+      {{text}}
+    </div>
+    <hr>
+    <div>
+      <input v-model.number="number">
+      {{number}}
+    </div>
+    <hr>
+    <div v-text="message"></div>
+    <hr>
+    <div>
+      <h4>Select</h4>
+      <select name=""
+              id=""
+              v-model="selected">
+        <option disabled
+                value="">請選擇</option>
+        <option value="小美">小美</option>
+        <option value="可愛小妞">可愛小妞</option>
+        <option value="漂亮阿姨">漂亮阿姨</option>
+      </select>
+      <p>小明喜歡的女生是 {{ selected }}。</p>
+      <hr>
+      <div class="form-check">
+        <input type="checkbox"
+               class="form-check-input"
+               id="check1"
+               v-model="checkbox1">
+        <label class="form-check-label"
+               for="check1">{{ checkbox1 }}</label>
+      </div>
+      <hr>
+      <div class="form-check">
+        <input type="checkbox"
+               class="form-check-input"
+               id="check2"
+               v-model="checkboxArray"
+               value="雞">
+        <label class="form-check-label"
+               for="check2">雞</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox"
+               class="form-check-input"
+               id="check3"
+               v-model="checkboxArray"
+               value="豬">
+        <label class="form-check-label"
+               for="check3">豬</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox"
+               class="form-check-input"
+               id="check4"
+               v-model="checkboxArray"
+               value="牛">
+        <label class="form-check-label"
+               for="check4">牛</label>
+      </div>
+      <hr>
+      <div class="form-check">
+        <input type="radio"
+               class="form-check-input"
+               id="radio2"
+               v-model="singleRadio"
+               value="雞">
+        <label class="form-check-label"
+               for="radio2">雞</label>
+      </div>
+      <div class="form-check">
+        <input type="radio"
+               class="form-check-input"
+               id="radio3"
+               v-model="singleRadio"
+               value="豬">
+        <label class="form-check-label"
+               for="radio3">豬</label>
+      </div>
+      <div class="form-check">
+        <input type="radio"
+               class="form-check-input"
+               id="radio4"
+               v-model="singleRadio"
+               value="牛">
+        <label class="form-check-label"
+               for="radio4">牛</label>
+      </div>
+
+      您選擇了：{{ singleRadio }}
+    </div>
+    <hr>
+    <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+    <hr>
+    <button v-on:click="say('hi')">Say hi</button>
+    <button v-on:click="say('what')">Say what</button>
+    <hr>
+    <a href="https://www.google.com.tw/"
+       v-on:click.prevent="clickfu">有 prevent 的狀況下</a>
+    <hr>
+    <a href="https://www.google.com.tw/"
+       v-on:click="clickfu">沒有 prevent 的狀況下</a>
+    <hr>
+    <label for="enterId">針對 input 按下 Enter 會觸發漂亮阿姨</label>
+    <input id="enterId"
+           @keyup.enter="onEnter">
+    <hr>
+    <label for="enterId">針對 input 按下 Ａ 會觸發漂亮阿姨</label>
+    <input id="enterId"
+           @keyup.65="onEnter">
+    <hr>
+    <label for="enterId">針對 input 按下 Ｂ 會觸發漂亮阿姨</label>
+    <input id="enterId"
+           @keyup.66="onEnter">
+    <hr>
+    <label for="enterId">針對 input 按下 Ｃ 會觸發漂亮阿姨</label>
+    <input id="enterId"
+           @keyup.67="onEnter">
+    <hr>
+    <input type="text"
+           :value="text">
+    <input type="text"
+           :value="1 + 1">
+    <br>
+    <img :src="imgUrl"
+         alt="">
+    <hr>
+    <div class="box"
+         :class="{rotate: isTransform}"></div>
+    <button class="btn btn-outline-primary"
+            v-on:click="isTransform = !isTransform">選轉物件</button>
+    <hr>
+    <div class="box"
+         :class="objectClass"></div>
+    <hr>
+    <button class="btn btn-outline-primary"
+            v-on:click="objectClass.rotate = !objectClass.rotate">選轉物件</button>
+    <div class="form-check">
+      <input type="checkbox"
+             class="form-check-input"
+             id="classToggle2"
+             v-model="objectClass['bg-danger']">
+      <label class="form-check-label"
+             for="classToggle2">切換色彩</label>
+    </div>
+    <hr>
+    <button class="btn"
+            :class="[...arrayClass]">請操作本元件</button>
+    <div class="form-check">
+      <input type="checkbox"
+             class="form-check-input"
+             id="classToggle3"
+             v-model="arrayClass"
+             value="btn-outline-primary">
+      <label class="form-check-label"
+             for="classToggle3">切換樣式</label>
+    </div>
+    <div class="form-check">
+      <input type="checkbox"
+             class="form-check-input"
+             id="classToggle4"
+             v-model="arrayClass"
+             value="active">
+      <label class="form-check-label"
+             for="classToggle4">啟用元素狀態</label>
+    </div>
+    <hr>
+    <h4>v-if, v-else</h4>
+    <div class="alert alert-success"
+         v-if="isSuccess">成功!</div>
+    <div class="alert alert-danger"
+         v-else>失敗!</div>
+    <div class="form-check">
+      <input type="checkbox"
+             class="form-check-input"
+             id="isSuccess"
+             v-model="isSuccess">
+      <label class="form-check-label"
+             for="isSuccess">啟用元素狀態</label>
+    </div>
+
+    <h4>v-else-if</h4>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link"
+           href="#"
+           :class="{'active': link === 'a'}"
+           @click="link = 'a'">標題一</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="#"
+           :class="{'active': link === 'b'}"
+           @click="link = 'b'">標題二</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="#"
+           :class="{'active': link === 'c'}"
+           @click="link = 'c'">標題三</a>
+      </li>
+    </ul>
+    <div class="content">
+      <div v-if="link === 'a'">Ａ</div>
+      <div v-else-if="link === 'b'">Ｂ</div>
+      <div v-else-if="link === 'c'">Ｃ</div>
+    </div>
+    <hr>
+    <h4>陣列與物件的迴圈</h4>
+    <ul>
+      <li v-for="(item, key) in arrayData">
+        {{ key }} - {{ item.name }} {{ item.age }} 歲
+      </li>
+
+      <li v-for="(item, key) in objectData">
+        {{ key }} - {{ item.name }} {{ item.age }} 歲
+      </li>
+    </ul>
+
+
+    <script src="js/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>

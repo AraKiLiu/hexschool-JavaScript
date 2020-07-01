@@ -1,0 +1,10 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  transition: all .5s;
+}
+
+.box.rotate {
+  transform: rotate(45deg)
+}
