@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport"
+            content="width=device-width">
+      <title>7/2 Day19</title>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+      <div id="app"
+           class="container">
+            我的名字：<input type="text"
+                   v-model="whoAmI.name"><br><!-- 請用 input type="text" + v-model-->
+            我的性別：<select name=""
+                    id=""
+                    v-model="whoAmI.gender">
+                  <option disabled
+                          value="">請選擇</option>
+                  <option :value="item"
+                          v-for="item in genders"
+                          :key="key">{{ item }}</option>
+            </select> <br><!-- 請用 select + v-model，搭配 genders 資料集 -->
+            我的技能列表：
+            <template v-for="(item, key) in skills"
+                      :key="key">
+                  <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               :id="'skill-' + key"
+                               v-model="whoAmI.skills"
+                               :value="item">
+                        <label class="form-check-label"
+                               :for="'skill-' + key">{{ item }}</label>
+                  </div>
+            </template>
+            <!-- 請用 checkbox + v-model，搭配 skills 資料集 -->
+            <hr>
+            {{ whoAmI }}
+      </div>
+      <script src="js/all.js"></script>
+</body>
+
+</html>

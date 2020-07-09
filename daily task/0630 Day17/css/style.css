@@ -1,0 +1,9 @@
+img {
+  max-width: 100%;
+}
+
+.river {
+  height: 50px;
+  color: white;
+  background-color: blue;
+}

@@ -1,5 +1,5 @@
 // 請將此段 var 宣告改為 let, const
-let Ming = '小明';
+const Ming = '小明';
 let MingAge = 16;
 let MingLocation = '真心鎮';
 const person = {

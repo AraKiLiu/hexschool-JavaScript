@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport"
+            content="width=device-width">
+      <title>6/30 Day17</title>
+      <link rel="stylesheet"
+            href="css/style.css">
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+      <div id="app">
+            <img :src=imgUrl
+                 alt="">
+
+            <div :class="{river: isChecked}">這裡有一條河</div>
+            <label><input type="checkbox"
+                         v-model="isChecked">真心鎮的警察是否靠近 {{ isChecked }}</label>
+      </div>
+      <script src="js/all.js"></script>
+</body>
+
+</html>
