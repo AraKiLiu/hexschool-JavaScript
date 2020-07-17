@@ -79,6 +79,7 @@ new Vue({
       } else {
         // 要是沒有id表示，這筆資料是要新加入的，使用Date().getTime()所摻生的數字作為id，再將tempProduct的資料新增至products中
         this.tempProduct.id = new Date().getTime();
+        console.log(this.tempProduct);
         const api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
         axios.post(api, this.tempProduct).then((response) => {
           this.getProducts();
