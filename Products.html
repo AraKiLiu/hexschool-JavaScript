@@ -81,11 +81,10 @@
         </tbody>
       </table>
 
+      <!-- pagination元件 -->
       <div is="pagination"
            :pages="pagination"
-           @emit-pages="getProducts"></div>
-      <!-- <pagination :pages="pagination"
-                  @emit-pages="getProducts"></pagination> -->
+           @pages="getProducts"></div>
 
       <!-- 產品彈出視窗 -->
       <!-- Modal -->

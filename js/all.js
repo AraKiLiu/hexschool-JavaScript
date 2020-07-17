@@ -31,9 +31,7 @@ new Vue({
       // },
     ],
     // 給彈出視窗使用的產品資料
-    tempProduct: {
-      imageUrl: [],
-    },
+    tempProduct: {},
     modalTitle: '',
     pagination: {},
     user: {
@@ -61,6 +59,7 @@ new Vue({
 
       axios.get(api).then((response) => {
         this.products = response.data.data; // 取得產品列表
+        console.log(this.products);
         this.pagination = response.data.meta.pagination; // 取得分頁資訊
       });
     },
