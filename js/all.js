@@ -1,11 +1,11 @@
-import delProductModal from './delProductModal.js';
+import delModal from './delModal.js';
 import modal from './modal.js';
 import pagination from './pagination.js';
 
 
 Vue.component('pagination', pagination);
 Vue.component('modal', modal);
-Vue.component('delProductModal', delProductModal);
+Vue.component('delModal', delModal);
 
 new Vue({
   el: '#app',
@@ -44,6 +44,7 @@ new Vue({
   methods: {
     // 將彈跳視窗Modal所要執行的動作都集中於此方法中
     openModal(isNew, item) {
+      let url = '';
       switch (isNew) {
         case 'new':
           this.tempProduct = {
@@ -54,7 +55,7 @@ new Vue({
           break;
         case 'edit':
           this.modalTitle = '編輯產品';
-          const url = `${this.api.path}${this.api.uuid}/admin/ec/product/${item.id}`;
+          url = `${this.api.path}${this.api.uuid}/admin/ec/product/${item.id}`;
           axios.get(url).then((response) => {
             // 取得成功後回寫到 tempProduct
             this.tempProduct = response.data.data;
@@ -65,8 +66,15 @@ new Vue({
           });
           break;
         case 'delete':
-          // 確保資料已經回寫後在打開 Modal
-          $('#delProductModal').modal('show');
+          url = `${this.api.path}${this.api.uuid}/admin/ec/product/${item.id}`;
+          axios.get(url).then((response) => {
+            // 取得成功後回寫到 tempProduct
+            this.tempProduct = response.data.data;
+            // 確保資料已經回寫後在打開 Modal
+            $('#delProductModal').modal('show');
+          }).catch((error) => {
+            console.log(error);
+          });
           break;
         default:
           break;

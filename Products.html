@@ -107,11 +107,10 @@
            role="dialog"
            aria-labelledby="exampleModalLabel"
            aria-hidden="true">
-        <div is='del'
+        <div is='delModal'
              :temp-product="tempProduct"
              :api='api'
-             @update="getProducts">
-        </div>
+             @update="getProducts"></div>
       </div>
     </div>
   </div>
@@ -305,7 +304,7 @@
 
   <!-- delModal -->
   <script type="text/x-template"
-          id="delProductModal">
+          id="delModal">
           <div class="modal-dialog"
              role="document">
           <div class="modal-content border-0">

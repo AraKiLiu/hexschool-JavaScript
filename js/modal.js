@@ -2,11 +2,7 @@ export default {
   // 分頁元件
   template: '#modal',
   data() {
-    return {
-      // tempProduct: {
-      //   imageUrl: [],
-      // },
-    };
+    return {};
   },
   props: ['tempProduct', 'modalTitle', 'api'],
   methods: {
