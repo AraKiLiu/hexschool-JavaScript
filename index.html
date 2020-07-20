@@ -113,7 +113,6 @@
           });
         },
         signout() {
-          // 請加入 Token
           document.cookie = `token=;expires=; path=/`;
         },
         getData() {
@@ -124,13 +123,13 @@
           // API
           const api = `${apiPath}${uuid}/admin/ec/products`
           // 將 Token 加入到 Headers 內
-
-          // 請自行完成 Ajax
           axios.defaults.headers['Authorization'] = `Bearer ${this.token}`;
           axios.get(api)
             .then(function (response) {
               this.products = response.data.data;
               this.pagination = response.data.meta.pagination
+            }).catch((error) => {
+              console.log(error);
             });
         }
       },
