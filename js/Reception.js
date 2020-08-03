@@ -18,8 +18,6 @@ Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
 // 將 VeeValidate 完整表單 驗證工具載入 作為全域註冊
 Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
 
-// 掛載 Vue-Loading 套件
-Vue.use(VueLoading);
 // 全域註冊 VueLoading 並標籤設定為 loading
 Vue.component('loading', VueLoading);
 
@@ -168,7 +166,7 @@ new Vue({
       axios.post(url, this.form).then((response) => {
         if (response.data.data.id) {
           this.isLoading = false;
-          // 跳出提示訊息
+          // 跳出訂購完成視窗
           $('#orderModal').modal('show');
 
           this.getCart();
