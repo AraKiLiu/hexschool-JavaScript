@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0bdcec"],{"2e25":function(n,e,t){"use strict";t.r(e);var c=function(){var n=this,e=n.$createElement;n._self._c;return n._m(0)},s=[function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"coupons"},[t("h1",[n._v("This is an admin/coupons page")])])}],a=t("2877"),u={},i=Object(a["a"])(u,c,s,!1,null,null,null);e["default"]=i.exports}}]);
-//# sourceMappingURL=chunk-2d0bdcec.cd6176b3.js.map
+//# sourceMappingURL=chunk-2d0bdcec.5e8a3756.js.map
