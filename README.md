@@ -1,3 +1,24 @@
-# JavaScript 實戰直播班 2020 夏季班
+# hexschool-javascript-vuecli
 
-## Week 1 關注點分離
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
