@@ -1,7 +1,27 @@
 <template>
-  <div class="Dashboard">
-    <h1>This is an dashboard page</h1>
-    <router-view :token="token" v-if="checkSuccess"/>
+  <div class="home">
+    <!-- <loading :active.sync="isLoading" ></loading> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">後台頁面</a>
+      <!-- eslint-disable-next-line max-len -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/">返回前台</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/admin/products">產品列表</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/admin/coupons">優惠卷</router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  <router-view :token="token" v-if="checkSuccess"/>
   </div>
 </template>
 
