@@ -30,21 +30,6 @@
                 type="submit">
           登入
         </button>
-        <br>
-        <button class="btn btn-outline-primary btn-block"
-                type="button"
-                @click="signout">
-          登出
-        </button>
-        <br>
-        <button class="btn btn-outline-primary btn-block"
-                type="button"
-                @click="getData">
-          取得資料
-        </button>
-        <p class="mt-5 mb-3 text-muted">
-          &copy; 2020~∞ - 六角學院
-        </p>
       </form>
     </div>
 </template>
@@ -76,26 +61,15 @@ export default {
         console.log(error.response);
       });
     },
-    signout() {
-      document.cookie = 'token=;expires=; path=/';
-    },
-    getData() {
-      // 取得 token 的 cookies（注意取得的時間點）
-      // 詳情請見：https://developer.mozilla.org/zh-CN/docs/Web/API/Document/cookie
-      this.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
-
-      // API
-      const api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/products`;
-      // 將 Token 加入到 Headers 內
-      this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
-      this.$http.get(api)
-        .then(function (response) {
-          this.products = response.data.data;
-          this.pagination = response.data.meta.pagination;
-        }).catch((error) => {
-          console.log(error);
-        });
-    },
   },
 };
 </script>
+
+<style>
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+</style>

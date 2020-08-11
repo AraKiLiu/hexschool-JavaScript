@@ -12,10 +12,16 @@ const routes = [
       {
         path: '/',
         component: () => import('../views/frontend/Products.vue'),
+        meta: {
+          title: 'Products',
+        },
       },
       {
         path: 'login',
         component: () => import('../views/frontend/Login.vue'),
+        meta: {
+          title: 'Login',
+        },
       },
     ],
   },
@@ -27,10 +33,16 @@ const routes = [
       {
         path: 'products',
         component: () => import('../views/dashboard/Products.vue'),
+        meta: {
+          title: 'Products',
+        },
       },
       {
         path: 'coupons',
         component: () => import('../views/dashboard/Coupons.vue'),
+        meta: {
+          title: 'Coupons',
+        },
       },
     ],
   },

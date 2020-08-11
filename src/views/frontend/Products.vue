@@ -290,20 +290,10 @@
         </div>
       </div>
     </div>
-  <!-- <div>
-    <h1>This is an products page</h1>
-    <table>
-      <tr v-for="item in products" :key="item.id">
-        <td>{{item.title}}</td>
-        <td>
-          <router-link :to="`/product/${item.id}`">連結</router-link>
-        </td>
-      </tr>
-    </table>
-  </div> -->
 </template>
 
 <script>
+/* global $ */
 export default {
   data() {
     return {
@@ -358,7 +348,7 @@ export default {
         this.$set(this.tempProduct, 'num', 1);
 
         // 打開productModal
-        // $('#productModal').modal('show');
+        $('#productModal').modal('show');
         this.status.loadingItem = '';
         this.isLoading = false;
       }).catch((error) => {
@@ -378,13 +368,13 @@ export default {
       this.$http.post(url, cart).then(() => {
         this.status.loadingItem = '';
         // 關閉productModal
-        // $('#productModal').modal('hide');
+        $('#productModal').modal('hide');
         this.getCart();
       }).catch((error) => {
         this.status.loadingItem = '';
         console.log(error.response.data.errors);
         // 關閉productModal
-        // $('#productModal').modal('hide');
+        $('#productModal').modal('hide');
       });
     },
     // 抓取購物車內容
@@ -458,7 +448,7 @@ export default {
         if (response.data.data.id) {
           this.isLoading = false;
           // 跳出訂購完成視窗
-          // $('#orderModal').modal('show');
+          $('#orderModal').modal('show');
 
           this.getCart();
         }

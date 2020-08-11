@@ -1,7 +1,4 @@
 import Vue from 'vue';
-// bootstrap
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap';
 // axios
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -15,16 +12,20 @@ import {
 } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules'; // 規則檔案（ex: email...）
 import zhTW from 'vee-validate/dist/locale/zh_TW.json'; // 語系檔案
-// Icon
-import Icon from 'vue-awesome/icons';
 // jquery
 import jquery from 'jquery';
+// bootstrap
+import 'bootstrap';
+
 import App from './App.vue';
 import router from './router';
 
+// jquery
 window.$ = jquery;
 
 Vue.config.productionTip = false;
+
+// Loading
 Vue.component('Loading', Loading);
 
 // vee-validate
@@ -41,9 +42,11 @@ localize('tw', zhTW);
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
 
-Vue.component('icon', Icon);
-
+// axios
 Vue.use(VueAxios, axios);
+
+// Event Bus
+Vue.prototype.$bus = new Vue();
 
 new Vue({
   router,
