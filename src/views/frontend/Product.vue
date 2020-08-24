@@ -15,7 +15,7 @@ export default {
   },
   created() {
     const { id } = this.$route.params;
-    this.$http.get(`${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/ec/product/${id}`).then((response) => {
+    this.$http.get(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`).then((response) => {
       this.product = response.data.data;
     });
   },

@@ -10,13 +10,24 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" to="/">返回前台</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/admin/products">產品列表</router-link>
+            <router-link class="nav-link" to="/admin/products">產品頁面</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/coupons">優惠卷</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/admin/storages">圖片頁面</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/admin/orders">訂單列表</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/admin/customer_order">測試下單</router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" @click.prevent="signOut" >
+              登出
+            </a>
           </li>
         </ul>
       </div>
@@ -41,7 +52,7 @@ export default {
       this.token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
       this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
 
-      const url = `${process.env.VUE_APP_APIPATH}api/auth/check`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/auth/check`;
 
       this.$http.post(url, {
         api_token: this.token,
@@ -52,6 +63,13 @@ export default {
         console.log(error);
         this.$router.push('/login');
       });
+    },
+    signOut() {
+      document.cookie = 'token=;expires=; path=/';
+      this.$bus.$emit('message:push',
+        '登出成功',
+        'success');
+      this.$router.push('/login');
     },
   },
 };

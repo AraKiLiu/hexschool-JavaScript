@@ -1,7 +1,7 @@
 <template>
   <div>
     <Loading :active.sync="isLoading" />
-    <div class="container mt-3">
+    <div class="container-fluid">
       <div class="text-right mt-4">
         <!-- 綁定openModal方法，並傳入'new'字串作為行為判斷 -->
         <button class="btn btn-primary"
@@ -95,18 +95,21 @@
               <div class="modal-body">
                   <div class="row">
                       <div class="col-sm-4">
-                          <div class="form-group">
-                              <label for="imageUrl">輸入圖片網址</label>
-                              <!-- 用v-model與tempProduct.imageUrl做雙向綁定 -->
-                              <input id="imageUrl"
-                                      v-model="tempProduct.imageUrl[0]"
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="請輸入圖片連結">
-                          </div>
-                          <img class="img-fluid"
-                              :src="tempProduct.imageUrl[0]"
-                              alt>
+                        <div v-for="i in 5" :key="i + 'img'" class="form-group">
+                          <label :for="'img' + i">輸入圖片網址</label>
+                          <input :id="'img' + i" v-model="tempProduct.imageUrl[i - 1]"
+                           type="text" class="form-control"
+                            placeholder="請輸入圖片連結">
+                        </div>
+                        <div class="form-group">
+                          <label for="customFile">
+                            或 上傳圖片
+                            <i v-if="status.fileUploading" class="fas fa-spinner fa-spin"></i>
+                          </label>
+                          <input id="customFile" ref="file" type="file"
+                           class="form-control" @change="uploadFile">
+                        </div>
+                        <img class="img-fluid" :src="tempProduct.imageUrl[0]" alt />
                       </div>
                       <div class="col-sm-8">
                           <div class="form-group">
@@ -266,6 +269,9 @@ export default {
       user: {
         token: '',
       },
+      status: {
+        fileUploading: false,
+      },
     };
   },
   components: {
@@ -288,7 +294,7 @@ export default {
           $('#productModal').modal('show');
           break;
         case 'edit':
-          url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/product/${item.id}`;
+          url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/product/${item.id}`;
           this.$http.get(url).then((response) => {
             // 取得成功後回寫到 tempProduct
             this.tempProduct = response.data.data;
@@ -297,7 +303,7 @@ export default {
           });
           break;
         case 'delete':
-          url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/product/${item.id}`;
+          url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/product/${item.id}`;
           this.$http.get(url).then((response) => {
             // 取得成功後回寫到 tempProduct
             this.tempProduct = response.data.data;
@@ -312,7 +318,7 @@ export default {
     // 抓取所有產品列表
     getProducts(page = 1) {
       this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/products?page=${page}`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/products?page=${page}`;
 
       this.$http.get(url).then((response) => {
         this.products = response.data.data; // 取得產品列表
@@ -332,28 +338,91 @@ export default {
     },
     delProduct() {
       this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/product/${this.tempProduct.id}`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/product/${this.tempProduct.id}`;
       this.$http.delete(url).then(() => {
         $('#delProductModal').modal('hide');
         this.isLoading = false;
+        // ===== Toasts =====
+        this.$bus.$emit('message:push',
+          '產品刪除成功',
+          'success');
+        // ==================
         this.getProducts();
+      }).catch(() => {
+        // ===== Toasts =====
+        this.$bus.$emit('message:push',
+          '產品刪除失敗',
+          'danger');
+        // ==================
       });
     },
     updateProduct() {
       // 要是有id，表示他為本來就已經有資料，只是要做更新，用forEach對原本的products中的id做比對，找出是哪一筆資料後做更新。
       if (this.tempProduct.id) {
-        const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/product/${this.tempProduct.id}`;
+        const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/product/${this.tempProduct.id}`;
         this.$http.patch(url, this.tempProduct).then(() => {
+          // ===== Toasts =====
+          this.$bus.$emit('message:push',
+            '產品更新成功',
+            'success');
+          // ==================
           this.getProducts();
+        }).catch(() => {
+          // ===== Toasts =====
+          this.$bus.$emit('message:push',
+            '產品更新失敗',
+            'danger');
+          // ==================
         });
       } else {
         // 要是沒有id表示，這筆資料是要新加入的，使用Date().getTime()所摻生的數字作為id，再將tempProduct的資料新增至products中
         this.tempProduct.id = new Date().getTime();
-        const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/product`;
+        const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/product`;
         this.$http.post(url, this.tempProduct).then(() => {
           this.getProducts();
+          // ===== Toasts =====
+          this.$bus.$emit('message:push',
+            '產品新增成功',
+            'success');
+          // ==================
+        }).catch(() => {
+          // ===== Toasts =====
+          this.$bus.$emit('message:push',
+            '產品新增失敗',
+            'danger');
+          // ==================
         });
       }
+    },
+    // 圖片上傳
+    uploadFile() {
+      const uploadedFile = this.$refs.file.files[0];
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/storage`;
+      this.status.fileUploading = true;
+      this.$http.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }).then((response) => {
+        this.status.fileUploading = false;
+        if (response.status === 200) {
+          this.tempProduct.imageUrl.push(response.data.data.path);
+          // ===== Toasts =====
+          this.$bus.$emit('message:push',
+            '圖片上傳成功',
+            'success');
+          // ==================
+        }
+      }).catch(() => {
+        // ===== Toasts =====
+        this.$bus.$emit('message:push',
+          '圖片上傳失敗，上傳不可超過 2 MB',
+          'danger');
+        // ==================
+        this.status.fileUploading = false;
+      });
     },
   },
 };
