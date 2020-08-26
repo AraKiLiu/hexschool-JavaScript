@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="Page navigation example">
+  <nav class="d-flex justify-content-center">
       <ul class="pagination">
         <li
           class="page-item"

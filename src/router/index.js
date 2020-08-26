@@ -24,6 +24,11 @@ const routes = [
         },
       },
       {
+        path: 'product/:productId',
+        name: '產品單項',
+        component: () => import('../views/frontend/Product.vue'),
+      },
+      {
         path: 'login',
         component: () => import('../views/frontend/Login.vue'),
         meta: {

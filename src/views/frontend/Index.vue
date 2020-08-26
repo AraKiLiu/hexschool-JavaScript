@@ -9,16 +9,15 @@
           alt=" class="img-fluid">
         </div>
         <div class="col-md-6 d-flex flex-column justify-content-center mt-md-0 mt-3">
-          <h2 class="font-weight-bold">Lorem ipsum dolor sit</h2>
+          <h2 class="font-weight-bold">小道消息</h2>
           <h5 class="font-weight-normal text-muted mt-2">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor
+            輸入你的電子郵件地址訂閱本所的最新商品通知，使用電子郵件接收通知
           </h5>
           <div class="input-group mb-0 mt-4">
             <input type="text" class="form-control rounded-0" placeholder="" />
             <div class="input-group-append">
               <button class="btn btn-dark rounded-0" type="button" id="search">
-                Lorem ipsum
+                訂閱
               </button>
             </div>
           </div>
