@@ -1,7 +1,6 @@
 <template>
   <div class="my-5 row no-gutters justify-content-center">
     <Loading :active.sync="isLoading" />
-
     <div class="col-md-6">
       <table class="table mt-4">
         <thead>

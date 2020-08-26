@@ -2,6 +2,8 @@
   <div>
     <Loading :active.sync="isLoading" />
     <div class="container-fluid">
+      <!-- 卡片元件 -->
+      <!-- https://bootstrap.hexschool.com/docs/4.2/components/card/-->
       <div class="row mt-4">
         <div
           v-for="(item, index) in products"
@@ -21,13 +23,10 @@
                   class="text-dark"
                 >{{ item.title }}</a>
               </h5>
-              <!-- 由於 content 是使用 vue2Editor 生成 HTML 標籤
-              所以必須使用 v-html 渲染，因此這邊會出現提示警告是正常的
-              如果要解決 ESLint 錯誤，只需要使用該方式就可以
-              -->
+              <!-- v-html:把html結構放進來 -->
               <!-- eslint-disable -->
               <p
-                class="card-text"
+                class="card-text text-truncate"
                 v-html="item.content"
               >
                 {{ item.content }}
@@ -81,6 +80,8 @@
           </div>
         </div>
       </div>
+
+      <!-- 查看更多的彈出表單 -->
       <div
         id="productModal"
         class="modal fade"
@@ -117,8 +118,6 @@
                 alt
               >
               <blockquote class="blockquote mt-3">
-                <!-- 由於 content 是使用 vue2Editor 生成 HTML 標籤
-                所以必須使用 v-html 渲染，因此這邊會出現提示警告是正常的 -->
                 <!-- eslint-disable -->
                 <p
                   class="mb-0"
@@ -191,6 +190,8 @@
           </div>
         </div>
       </div>
+
+      <!-- 購物車 -->
       <div class="my-5 row justify-content-center">
         <div class="col-md-6">
           <div class="text-right mb-3">
@@ -314,6 +315,8 @@
           </div>
         </div>
       </div>
+
+      <!-- 訂單 -->
       <div class="my-5 row justify-content-center">
         <validation-observer
           v-slot="{ invalid }"
@@ -473,9 +476,6 @@ export default {
       status: {
         loadingItem: '',
       },
-      // coupon 不建議預先定義，如果預先定義的話通常是空值
-      // 如果傳送一個空值的 coupon 就會出現 500 錯誤
-      // 因此會建議打完 coupon API 確定該 coupon 是存在並啟用的狀態在加入到訂單內
       form: {
         name: '',
         email: '',
@@ -489,7 +489,6 @@ export default {
       coupon: {},
       isLoading: false,
       coupon_code: '',
-      uuid: process.env.VUE_APP_UID,
     };
   },
   created() {
@@ -510,10 +509,8 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`;
       this.$http.get(url).then((response) => {
         this.tempProduct = response.data.data;
-        // 由於 tempProduct 的 num 沒有預設數字
-        // 因此 options 無法選擇預設欄位，故要增加這一行解決該問題
-        // 另外如果直接使用物件新增屬性進去是會雙向綁定失效，因此需要使用 $set
         this.$set(this.tempProduct, 'num', 0);
+        // 打開productModal
         $('#productModal').modal('show');
         this.isLoading = false;
       });
@@ -540,9 +537,11 @@ export default {
             `加入失敗 ${err}`,
             'danger');
         });
+        // 關閉productModal
         $('#productModal').modal('hide');
       });
     },
+    // 抓取購物車內容
     getCart() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
@@ -555,6 +554,7 @@ export default {
         this.isLoading = false;
       });
     },
+    // 增減商品數量
     quantityUpdata(id, num) {
       // 避免商品數量低於 0 個
       if (num <= 0) return;
@@ -569,6 +569,7 @@ export default {
         this.getCart();
       });
     },
+    // 刪除購物車全部項目
     removeAllCartItem() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/all/product`;
@@ -581,6 +582,7 @@ export default {
           this.getCart();
         });
     },
+    // 刪除購物車項目
     removeCartItem(id) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/${id}`;
@@ -592,6 +594,7 @@ export default {
         this.getCart();
       });
     },
+    // 使用優惠卷
     addCoupon() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/coupon/search`;
@@ -616,13 +619,11 @@ export default {
         }
       });
     },
+    // 新增訂單
     createOrder() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/orders`;
       const order = { ...this.form };
-      // 如果有優惠卷就加入，請注意該 coupon 必須先執行過 this.addCoupon()
-      // 主要會使用 enabled 屬性判斷該 coupon 是否可以使用
-      // 如果沒有執行 this.addCoupon() 那麼 enabled 就會是 undefined，因此還是不會執行
       if (this.coupon.enabled) {
         order.coupon = this.coupon.code;
       }

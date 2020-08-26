@@ -376,12 +376,11 @@ export default {
     getProduct(id) {
       this.isLoading = true;
       this.status.loadingItem = id;
-
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`;
-
       this.$http.get(url).then((response) => {
         this.tempProduct = response.data.data;
         this.$set(this.tempProduct, 'num', 0);
+        this.status.loadingItem = '';
         // 打開productModal
         $('#productModal').modal('show');
         this.isLoading = false;
@@ -429,6 +428,7 @@ export default {
     },
     // 增減商品數量
     quantityUpdata(id, num) {
+      // 避免商品數量低於 0 個
       if (num <= 0) return;
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
@@ -483,6 +483,7 @@ export default {
         }
       });
     },
+    // 使用優惠卷
     addCoupon() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/coupon/search`;

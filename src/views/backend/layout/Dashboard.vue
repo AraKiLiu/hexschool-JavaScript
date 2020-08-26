@@ -56,11 +56,9 @@ export default {
 
       this.$http.post(url, {
         api_token: this.token,
-      }).then((response) => {
-        console.log(response);
+      }).then(() => {
         this.checkSuccess = true;
-      }).catch((error) => {
-        console.log(error);
+      }).catch(() => {
         this.$router.push('/login');
       });
     },
