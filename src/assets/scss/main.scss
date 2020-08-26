@@ -1,4 +1,5 @@
-@import "~bootstrap/scss/functions";
-@import "./helper/variables";
+@import '~bootstrap/scss/functions'; // 官方的
+@import "@/assets/scss/helper/_variables"; // 自己的
+@import '~bootstrap/scss/mixins'; // 官方的
 
 @import "~bootstrap";

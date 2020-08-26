@@ -11,6 +11,13 @@ const routes = [
     children: [
       {
         path: '/',
+        component: () => import('../views/frontend/Index.vue'),
+        meta: {
+          title: 'Products',
+        },
+      },
+      {
+        path: '/products',
         component: () => import('../views/frontend/Products.vue'),
         meta: {
           title: 'Products',
