@@ -501,6 +501,7 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}`;
       this.$http.get(url).then((response) => {
         this.products = response.data.data;
+        console.log(this.products);
         this.isLoading = false;
       });
     },

@@ -29,6 +29,20 @@ const routes = [
         component: () => import('../views/frontend/Product.vue'),
       },
       {
+        path: '/cartDetail',
+        component: () => import('../views/frontend/CartDetail.vue'),
+        meta: {
+          title: 'CartDetail',
+        },
+      },
+      {
+        path: '/checkout',
+        component: () => import('../views/frontend/Checkout.vue'),
+        meta: {
+          title: 'checkout',
+        },
+      },
+      {
         path: 'login',
         component: () => import('../views/frontend/Login.vue'),
         meta: {
