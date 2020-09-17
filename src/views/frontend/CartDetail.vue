@@ -72,8 +72,7 @@
           <p class="mb-0 h4 font-weight-bold">NT$24,500</p>
         </div>
         <router-link class="btn btn-dark btn-block mt-4 rounded-0 py-3"
-         to="/checkout"
-          style="left: 50%; transform: translate(-50%, -50%); top: 50%;">
+         to="/checkout">
           寄送表單
         </router-link>
       </div>

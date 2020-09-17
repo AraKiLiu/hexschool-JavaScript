@@ -110,7 +110,7 @@
             </form>
           </div>
           <div class="d-flex flex-column-reverse flex-md-row mt-4 justify-content-between
-             align-items-md-center align-items-end w-100">
+             align-items-md-center align-items-end w-100">
             <a href="./product.html" class="text-dark mt-md-0 mt-3">
               <i class="fas fa-chevron-left mr-2"></i> Lorem ipsum
             </a>
