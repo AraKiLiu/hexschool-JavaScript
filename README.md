@@ -1,10 +1,5 @@
 # hexschool-javascript-vuecli
 
-## Link
-```
-木製所進入連結[Configuration Reference](https://arakiliu.github.io/hexschool-JavaScript/）
-```
-
 ## Project setup
 ```
 npm install
@@ -25,5 +20,5 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Link
+木製所進入連結 [Configuration Reference](https://arakiliu.github.io/hexschool-JavaScript/).
