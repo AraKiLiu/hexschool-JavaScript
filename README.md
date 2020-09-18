@@ -2,8 +2,7 @@
 
 ## Link
 ```
-木製所進入連結
-https://arakiliu.github.io/hexschool-JavaScript/ 
+木製所進入連結[Configuration Reference](https://arakiliu.github.io/hexschool-JavaScript/）
 ```
 
 ## Project setup
